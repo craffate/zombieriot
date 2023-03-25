@@ -62,7 +62,7 @@ stock UpdateHUDClient(client)
     }
     
     new clients[1];
-	clients[0] = client;
+    clients[0] = client;
 	
     UpdateHUD(clients, 1);
 }
