@@ -13,14 +13,14 @@ public Action:HUD(Handle:timer)
 
 UpdateHUD(clients[], numClients)
 {
-    new bool:hud = GetConVarBool(gCvars[CVAR_HUD]);
+    new bool:hud = GetConVarBool(gCvars.CVAR_HUD);
     
     if (tHUD == INVALID_HANDLE || !hud)
     {
         return;
     }
     
-    new bool:targeting = GetConVarBool(gCvars[CVAR_TARGETING]);
+    new bool:targeting = GetConVarBool(gCvars.CVAR_TARGETING);
     
     new livezombies = GetLiveZombieCount();
     new livehumans = GetLiveHumanCount();

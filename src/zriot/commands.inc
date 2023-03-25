@@ -19,7 +19,7 @@ CreateCommands()
     
 public Action:Command_Restrict(client, argc)
 {
-    new bool:enabled = GetConVarBool(gCvars[CVAR_ENABLE]);
+    new bool:enabled = GetConVarBool(gCvars.CVAR_ENABLE);
     if (argc < 1 || !enabled)
     {
         return Plugin_Handled;
@@ -40,7 +40,7 @@ public Action:Command_Restrict(client, argc)
 
 public Action:Command_UnRestrict(client, argc)
 {
-    new bool:enabled = GetConVarBool(gCvars[CVAR_ENABLE]);
+    new bool:enabled = GetConVarBool(gCvars.CVAR_ENABLE);
     if (argc < 1 || !enabled)
     {
         return Plugin_Handled;
@@ -61,7 +61,7 @@ public Action:Command_UnRestrict(client, argc)
 
 public Action:Command_SetDay(client, argc)
 {
-    new bool:enabled = GetConVarBool(gCvars[CVAR_ENABLE]);
+    new bool:enabled = GetConVarBool(gCvars.CVAR_ENABLE);
     if (argc < 1 || !enabled)
     {
         return Plugin_Handled;
@@ -90,7 +90,7 @@ public Action:Command_SetDay(client, argc)
 
 public Action:Command_Zombie(client, argc)
 {
-    new bool:enabled = GetConVarBool(gCvars[CVAR_ENABLE]);
+    new bool:enabled = GetConVarBool(gCvars.CVAR_ENABLE);
     if (argc < 1 || !enabled)
     {
         return Plugin_Handled;
@@ -125,7 +125,7 @@ public Action:Command_Zombie(client, argc)
 
 public Action:Command_Human(client, argc)
 {
-    new bool:enabled = GetConVarBool(gCvars[CVAR_ENABLE]);
+    new bool:enabled = GetConVarBool(gCvars.CVAR_ENABLE);
     if (argc < 1 || !enabled)
     {
         return Plugin_Handled;

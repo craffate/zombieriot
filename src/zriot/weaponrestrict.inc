@@ -29,7 +29,7 @@ ClientHookUse(client)
 
 public Action:BuyHook(client, argc)
 {
-    new bool:enabled = GetConVarBool(gCvars[CVAR_ENABLE]);
+    new bool:enabled = GetConVarBool(gCvars.CVAR_ENABLE);
     if (!enabled)
     {
         return Plugin_Continue;
@@ -228,7 +228,7 @@ bool:IsWeaponGroup(const String:weapon[])
 
 public Action:Weapon_CanUse(client, weapon)
 {
-    new bool:enabled = GetConVarBool(gCvars[CVAR_ENABLE]);
+    new bool:enabled = GetConVarBool(gCvars.CVAR_ENABLE);
     if (!enabled)
     {
         return Plugin_Continue;

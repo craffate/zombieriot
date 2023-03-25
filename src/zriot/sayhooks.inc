@@ -14,7 +14,7 @@ HookChatCmds()
 
 public Action:SayCommand(client, argc)
 {
-    new bool:enabled = GetConVarBool(gCvars[CVAR_ENABLE]);
+    new bool:enabled = GetConVarBool(gCvars.CVAR_ENABLE);
     if (!client || !enabled)
     {
         return Plugin_Continue;
@@ -43,7 +43,7 @@ Market(client)
         return;
     }
     
-    new bool:buyzone = GetConVarBool(gCvars[CVAR_ZMARKET_BUYZONE]); 
+    new bool:buyzone = GetConVarBool(gCvars.CVAR_ZMARKET_BUYZONE); 
     if (!IsClientInBuyZone(client) && buyzone)
     {
         ZRiot_PrintCenterText(client, "Market out of buyzone");

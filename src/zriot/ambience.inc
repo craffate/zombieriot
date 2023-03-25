@@ -12,14 +12,14 @@ new Handle:tAmbience = INVALID_HANDLE;
 
 LoadAmbienceData()
 {
-    new bool:ambience = GetConVarBool(gCvars[CVAR_AMBIENCE]);
+    new bool:ambience = GetConVarBool(gCvars.CVAR_AMBIENCE);
     if (!ambience)
     {
         return;
     }
     
     decl String:sound[64];
-    GetConVarString(gCvars[CVAR_AMBIENCE_FILE], sound, sizeof(sound));
+    GetConVarString(gCvars.CVAR_AMBIENCE_FILE, sound, sizeof(sound));
     Format(sound, sizeof(sound), "sound/%s", sound);
     
     soundValid = FileExists(sound, true);
@@ -46,7 +46,7 @@ RestartAmbience()
 
 public Action:AmbienceLoop(Handle:timer)
 {
-    new bool:ambience = GetConVarBool(gCvars[CVAR_AMBIENCE]);
+    new bool:ambience = GetConVarBool(gCvars.CVAR_AMBIENCE);
     
     if (!ambience || !soundValid)
     {
@@ -54,17 +54,17 @@ public Action:AmbienceLoop(Handle:timer)
     }
     
     decl String:sound[64];
-    GetConVarString(gCvars[CVAR_AMBIENCE_FILE], sound, sizeof(sound));
+    GetConVarString(gCvars.CVAR_AMBIENCE_FILE, sound, sizeof(sound));
     
     EmitAmbience(sound);
     
-    new Float:delay = GetConVarFloat(gCvars[CVAR_AMBIENCE_LENGTH]);
+    new Float:delay = GetConVarFloat(gCvars.CVAR_AMBIENCE_LENGTH);
     tAmbience = CreateTimer(delay, AmbienceLoop, _, TIMER_FLAG_NO_MAPCHANGE);
 }
 
 StopAmbience()
 {
-    new bool:ambience = GetConVarBool(gCvars[CVAR_AMBIENCE]);
+    new bool:ambience = GetConVarBool(gCvars.CVAR_AMBIENCE);
     
     if (!ambience)
     {
@@ -72,7 +72,7 @@ StopAmbience()
     }
     
     decl String:sound[64];
-    GetConVarString(gCvars[CVAR_AMBIENCE_FILE], sound, sizeof(sound));
+    GetConVarString(gCvars.CVAR_AMBIENCE_FILE, sound, sizeof(sound));
     
     new maxplayers = GetMaxClients();
     for (new x = 1; x <= maxplayers; x++)
@@ -92,6 +92,6 @@ EmitAmbience(const String:sound[])
     
     StopAmbience();
     
-    new Float:volume = GetConVarFloat(gCvars[CVAR_AMBIENCE_VOLUME]);
+    new Float:volume = GetConVarFloat(gCvars.CVAR_AMBIENCE_VOLUME);
     EmitSoundToAll(sound, SOUND_FROM_PLAYER, SNDCHAN_AUTO, SNDLEVEL_NORMAL, SND_NOFLAGS, volume, SNDPITCH_NORMAL, -1, NULL_VECTOR, NULL_VECTOR, true, 0.0);
 }

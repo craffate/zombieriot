@@ -18,8 +18,8 @@ HookCommands()
 
 public Action:Command_NightVision(client, argc)
 {
-    new bool:allow_disable = GetConVarBool(gCvars[CVAR_ZVISION_ALLOW_DISABLE]);
-    new bool:enabled = GetConVarBool(gCvars[CVAR_ENABLE]);
+    new bool:allow_disable = GetConVarBool(gCvars.CVAR_ZVISION_ALLOW_DISABLE);
+    new bool:enabled = GetConVarBool(gCvars.CVAR_ENABLE);
     if (!allow_disable || !enabled)
     {
         return;
@@ -55,14 +55,14 @@ FindHostname()
 
 ChangeLightStyle()
 {
-    new bool:dark = GetConVarBool(gCvars[CVAR_DARK]);
+    new bool:dark = GetConVarBool(gCvars.CVAR_DARK);
     if (dark)
     {
         decl String:darkness[2];
         decl String:sky[32];
         
-        GetConVarString(gCvars[CVAR_DARK_LEVEL], darkness, sizeof(darkness));
-        GetConVarString(gCvars[CVAR_DARK_SKY], sky, sizeof(sky));
+        GetConVarString(gCvars.CVAR_DARK_LEVEL, darkness, sizeof(darkness));
+        GetConVarString(gCvars.CVAR_DARK_SKY, sky, sizeof(sky));
         
         SetLightStyle(0, darkness);
         SetConVarString(FindConVar("sv_skyname"), sky, true);
@@ -111,18 +111,18 @@ Zombify(client, zombieid)
 
 ZombiesWin()
 {
-    new bool:regression = GetConVarBool(gCvars[CVAR_REGRESSION]);
+    new bool:regression = GetConVarBool(gCvars.CVAR_REGRESSION);
     
     if (gDay > 0 && regression)
     {
         gDay--;
     }
     
-    new bool:fade = GetConVarBool(gCvars[CVAR_ROUNDFADE]);
+    new bool:fade = GetConVarBool(gCvars.CVAR_ROUNDFADE);
     if (fade)
         Fade(0, 2000, 2000, 2, 255, 0, 0, 255);
     
-    new bool:overlays = GetConVarBool(gCvars[CVAR_OVERLAYS]);
+    new bool:overlays = GetConVarBool(gCvars.CVAR_OVERLAYS);
     if (overlays)
         ShowOverlays(5.0, gZombieTeam);
     
@@ -142,11 +142,11 @@ HumansWin()
         GotoNextMap();
     }
     
-    new bool:fade = GetConVarBool(gCvars[CVAR_ROUNDFADE]);
+    new bool:fade = GetConVarBool(gCvars.CVAR_ROUNDFADE);
     if (fade)
         Fade(0, 2000, 2000, 2, 0, 0, 255, 255);
     
-    new bool:overlays = GetConVarBool(gCvars[CVAR_OVERLAYS]);
+    new bool:overlays = GetConVarBool(gCvars.CVAR_OVERLAYS);
     if (overlays)
         ShowOverlays(5.0, gHumanTeam);
     
@@ -238,11 +238,11 @@ StartRespawnTimer(client, bool:firstspawn)
     new respawn;
     if (firstspawn)
     {
-        respawn = GetConVarInt(gCvars[CVAR_FIRST_RESPAWN]);
+        respawn = GetConVarInt(gCvars.CVAR_FIRST_RESPAWN);
     }
     else
     {
-        respawn = GetConVarInt(gCvars[CVAR_RESPAWN]);
+        respawn = GetConVarInt(gCvars.CVAR_RESPAWN);
     }
     
     if (!respawn)
@@ -303,7 +303,7 @@ StartZVision(client)
     new bool:zvision = ZVision(client);
     if (zvision)
     {
-        new Float:redisplay = GetConVarFloat(gCvars[CVAR_ZVISION_REDISPLAY]);
+        new Float:redisplay = GetConVarFloat(gCvars.CVAR_ZVISION_REDISPLAY);
         tZVision[client] = CreateTimer(redisplay, ZVisionTimer, client, TIMER_REPEAT);
     }
 }
@@ -443,7 +443,7 @@ GetClientDeathCount(client)
 
 SetHostname(const String:name[])
 {
-    new bool:update_hostname = GetConVarBool(gCvars[CVAR_HOSTNAME_UPDATE]);
+    new bool:update_hostname = GetConVarBool(gCvars.CVAR_HOSTNAME_UPDATE);
     if (!update_hostname)
     {
         return;

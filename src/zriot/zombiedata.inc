@@ -6,17 +6,17 @@
  * ==================== 
  */
 
-enum ZRiot_ZombieData
+enum struct ZRiot_ZombieData
 {
-    String:data_name[32],
-    String:data_model[256],
-    String:data_zvision[256],
-    bool:data_override_required,
-    data_health,
-    Float:data_speed,
-    Float:data_gravity,
-    Float:data_jump,
-    data_fov
+    char data_name[32];
+    char data_model[256];
+    char data_zvision[256];
+    bool data_override_required;
+    int data_health;
+    float data_speed;
+    float data_gravity;
+    float data_jump;
+    int data_fov;
 }
 
 #define MAXZOMBIES 25
@@ -27,7 +27,7 @@ new Handle:kvZombies = INVALID_HANDLE;
 
 new Handle:adtModels = INVALID_HANDLE;
 
-new arrayZombies[MAXZOMBIES][ZRiot_ZombieData];
+ZRiot_ZombieData arrayZombies[MAXZOMBIES];
 new Handle:adtZombies = INVALID_HANDLE;
 new zCount;
 
@@ -93,26 +93,26 @@ LoadZombieData(bool:defaultconfig)
     do
     {
         KvGetSectionName(kvZombies, name, sizeof(name));
-        strcopy(arrayZombies[zCount][data_name], 32, name);
+        strcopy(arrayZombies[zCount].data_name, 32, name);
         
         KvGetString(kvZombies, "type", type, sizeof(type));
-        arrayZombies[zCount][data_override_required] = (StrEqual(type, "override_required", false));
+        arrayZombies[zCount].data_override_required = (StrEqual(type, "override_required", false));
         
         KvGetString(kvZombies, "model", model, sizeof(model));
-        strcopy(arrayZombies[zCount][data_model], 256, model);
+        strcopy(arrayZombies[zCount].data_model, 256, model);
         
         KvGetString(kvZombies, "zvision", zvision, sizeof(zvision));
-        strcopy(arrayZombies[zCount][data_zvision], 256, zvision);
+        strcopy(arrayZombies[zCount].data_zvision, 256, zvision);
         
-        arrayZombies[zCount][data_health] = KvGetNum(kvZombies, "health", 500);
+        arrayZombies[zCount].data_health = KvGetNum(kvZombies, "health", 500);
         
-        arrayZombies[zCount][data_speed] = KvGetFloat(kvZombies, "speed", 300.0);
+        arrayZombies[zCount].data_speed = KvGetFloat(kvZombies, "speed", 300.0);
         
-        arrayZombies[zCount][data_gravity] = KvGetFloat(kvZombies, "gravity", 1.0);
+        arrayZombies[zCount].data_gravity = KvGetFloat(kvZombies, "gravity", 1.0);
         
-        arrayZombies[zCount][data_jump] = KvGetFloat(kvZombies, "jump", 1.0);
+        arrayZombies[zCount].data_jump = KvGetFloat(kvZombies, "jump", 1.0);
         
-        arrayZombies[zCount][data_fov] = KvGetNum(kvZombies, "fov", 90);
+        arrayZombies[zCount].data_fov = KvGetNum(kvZombies, "fov", 90);
         
         zCount++;
     } while (KvGotoNextKey(kvZombies));
@@ -205,7 +205,7 @@ FindZombieIDByName(const String:name[])
 {
     for (new x = 0; x < zCount; x++)
     {
-        if (StrEqual(name, arrayZombies[x][data_name], false))
+        if (StrEqual(name, arrayZombies[x].data_name, false))
         {
             return x;
         }
@@ -228,7 +228,7 @@ bool:IsOverrideRequired(zombieid)
 {
     if (IsValidZombieID(zombieid))
     {
-        return arrayZombies[zombieid][data_override_required];
+        return arrayZombies[zombieid].data_override_required;
     }
     
     return false;
@@ -239,7 +239,7 @@ ApplyZombieModel(client, zombieid)
     if (IsValidZombieID(zombieid))
     {
         decl String:model[256];
-        strcopy(model, sizeof(model), arrayZombies[zombieid][data_model]);
+        strcopy(model, sizeof(model), arrayZombies[zombieid].data_model);
         
         PrecacheModel(model);
         SetEntityModel(client, model);
@@ -250,7 +250,7 @@ GetZombieZVision(zombieid, String:zvision[], maxlen)
 {
     if (IsValidZombieID(zombieid))
     {
-        strcopy(zvision, maxlen, arrayZombies[zombieid][data_zvision]);
+        strcopy(zvision, maxlen, arrayZombies[zombieid].data_zvision);
     }
 }
 
@@ -258,7 +258,7 @@ ApplyZombieHealth(client, zombieid)
 {
     if (IsValidZombieID(zombieid))
     {
-        SetEntityHealth(client, arrayZombies[zombieid][data_health]);
+        SetEntityHealth(client, arrayZombies[zombieid].data_health);
     }
 }
 
@@ -266,7 +266,7 @@ ApplyZombieSpeed(client, zombieid)
 {
     if (IsValidZombieID(zombieid))
     {
-        SetPlayerSpeed(client, arrayZombies[zombieid][data_speed]);
+        SetPlayerSpeed(client, arrayZombies[zombieid].data_speed);
     }
 }
 
@@ -274,7 +274,7 @@ ApplyZombieGravity(client, zombieid)
 {
     if (IsValidZombieID(zombieid))
     {
-        SetEntityGravity(client, arrayZombies[zombieid][data_gravity]);
+        SetEntityGravity(client, arrayZombies[zombieid].data_gravity);
     }
 }
 
@@ -282,7 +282,7 @@ Float:GetZombieJump(zombieid)
 {
     if (IsValidZombieID(zombieid))
     {
-        return arrayZombies[zombieid][data_jump];
+        return arrayZombies[zombieid].data_jump;
     }
     
     return 0.0;
@@ -292,6 +292,6 @@ ApplyZombieFOV(client, zombieid)
 {
     if (IsValidZombieID(zombieid))
     {
-        SetPlayerFOV(client, arrayZombies[zombieid][data_fov]);
+        SetPlayerFOV(client, arrayZombies[zombieid].data_fov);
     }
 }

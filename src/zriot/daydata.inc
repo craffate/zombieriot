@@ -6,24 +6,24 @@
  * ====================
  */
 
-enum ZRiot_DayData
+enum struct ZRiot_DayData
 {
-    String:data_display[32],
-    String:data_zombieoverride[32*MAXZOMBIES],
-    String:data_storyline[192],
-    data_count,
-    data_healthboost,
-    bool:data_respawn,
-    data_deaths_before_zombie,
-    Float:data_fademin,
-    Float:data_fademax
+    char data_display[32];
+    char data_zombieoverride[32*MAXZOMBIES];
+    char data_storyline[192];
+    int data_count;
+    int data_healthboost;
+    bool data_respawn;
+    int data_deaths_before_zombie;
+    float data_fademin;
+    float data_fademax;
 }
 
 #define MAXDAYS 25
 
 new Handle:kvDays = INVALID_HANDLE;
 
-new arrayDays[MAXDAYS][ZRiot_DayData];
+ZRiot_DayData arrayDays[MAXDAYS];
 new dCount;
 
 LoadDayData(bool:defaultconfig)
@@ -63,20 +63,20 @@ LoadDayData(bool:defaultconfig)
     do
     {
         KvGetSectionName(kvDays, display, sizeof(display));
-        strcopy(arrayDays[dCount][data_display], 32, display);
+        strcopy(arrayDays[dCount].data_display, 32, display);
         
         KvGetString(kvDays, "zombieoverride", zombieoverride, sizeof(zombieoverride));
-        strcopy(arrayDays[dCount][data_zombieoverride], 32*MAXZOMBIES, zombieoverride);
+        strcopy(arrayDays[dCount].data_zombieoverride, 32*MAXZOMBIES, zombieoverride);
         
         KvGetString(kvDays, "storyline", storyline, sizeof(storyline));
-        strcopy(arrayDays[dCount][data_storyline], 192, storyline);
+        strcopy(arrayDays[dCount].data_storyline, 192, storyline);
         
-        arrayDays[dCount][data_count] = KvGetNum(kvDays, "count", 25);
-        arrayDays[dCount][data_healthboost] = KvGetNum(kvDays, "healthboost");
-        arrayDays[dCount][data_respawn] = bool:KvGetNum(kvDays, "respawn");
-        arrayDays[dCount][data_deaths_before_zombie] = KvGetNum(kvDays, "deaths_before_zombie");
-        arrayDays[dCount][data_fademin] = KvGetFloat(kvDays, "fademin");
-        arrayDays[dCount][data_fademax] = KvGetFloat(kvDays, "fademax");
+        arrayDays[dCount].data_count = KvGetNum(kvDays, "count", 25);
+        arrayDays[dCount].data_healthboost = KvGetNum(kvDays, "healthboost");
+        arrayDays[dCount].data_respawn = bool:KvGetNum(kvDays, "respawn");
+        arrayDays[dCount].data_deaths_before_zombie = KvGetNum(kvDays, "deaths_before_zombie");
+        arrayDays[dCount].data_fademin = KvGetFloat(kvDays, "fademin");
+        arrayDays[dCount].data_fademax = KvGetFloat(kvDays, "fademax");
         
         dCount++;
     } while (KvGotoNextKey(kvDays));
@@ -84,7 +84,7 @@ LoadDayData(bool:defaultconfig)
 
 GetDayDisplay(day, String:display[], len)
 {
-    strcopy(display, len, arrayDays[day][data_display]);
+    strcopy(display, len, arrayDays[day].data_display);
 }
 
 bool:ExplodeZombieOverrides(day)
@@ -127,42 +127,42 @@ bool:ExplodeZombieOverrides(day)
 
 GetDayZombieOverride(day, String:zombieoverride[], len)
 {
-    strcopy(zombieoverride, len, arrayDays[day][data_zombieoverride]);
+    strcopy(zombieoverride, len, arrayDays[day].data_zombieoverride);
 }
 
 GetDayStoryLine(day, String:storyline[], len)
 {
-    strcopy(storyline, len, arrayDays[day][data_storyline]);
+    strcopy(storyline, len, arrayDays[day].data_storyline);
 }
 
 GetDayCount(day)
 {
-    return arrayDays[day][data_count];
+    return arrayDays[day].data_count;
 }
 
 GetDayHealthBoost(day)
 {
-    return arrayDays[day][data_healthboost];
+    return arrayDays[day].data_healthboost;
 }
 
 bool:GetDayRespawn(day)
 {
-    return arrayDays[day][data_respawn];
+    return arrayDays[day].data_respawn;
 }
 
 GetDayDeathsBeforeZombie(day)
 {
-    return arrayDays[day][data_deaths_before_zombie];
+    return arrayDays[day].data_deaths_before_zombie;
 }
 
 Float:GetDayMinFade(day)
 {
-    return arrayDays[day][data_fademin];
+    return arrayDays[day].data_fademin;
 }
 
 Float:GetDayMaxFade(day)
 {
-    return arrayDays[day][data_fademax];
+    return arrayDays[day].data_fademax;
 }
 
 BeginDay()
@@ -170,7 +170,7 @@ BeginDay()
     gZombiesKilled = 0;
     
     new zombiecount = GetDayCount(gDay);
-    new zombiemax = GetConVarInt(gCvars[CVAR_ZOMBIEMAX]);
+    new zombiemax = GetConVarInt(gCvars.CVAR_ZOMBIEMAX);
     
     new spawncount;
     new bool:respawn = GetDayRespawn(gDay);

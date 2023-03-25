@@ -39,7 +39,7 @@ UnhookEvents()
 new bool:pcFire = true;
 public Action:PlayerConnect(Handle:event, const String:name[], bool:dontBroadcast)
 {
-    new bool:botquota_silent = GetConVarBool(gCvars[CVAR_BOTQUOTA_SILENT]);
+    new bool:botquota_silent = GetConVarBool(gCvars.CVAR_BOTQUOTA_SILENT);
     if (!botquota_silent)
         return Plugin_Continue;
     
@@ -74,7 +74,7 @@ public Action:PlayerConnect(Handle:event, const String:name[], bool:dontBroadcas
 new bool:pdFire = true;
 public Action:PlayerDisconnect(Handle:event, const String:name[], bool:dontBroadcast)
 {
-    new bool:botquota_silent = GetConVarBool(gCvars[CVAR_BOTQUOTA_SILENT]);
+    new bool:botquota_silent = GetConVarBool(gCvars.CVAR_BOTQUOTA_SILENT);
     if (!botquota_silent)
         return Plugin_Continue;
     
@@ -141,7 +141,7 @@ public Action:RoundStart(Handle:event, const String:name[], bool:dontBroadcast)
         tHUD = INVALID_HANDLE;
     }
     
-    new bool:hud = GetConVarBool(gCvars[CVAR_HUD]);
+    new bool:hud = GetConVarBool(gCvars.CVAR_HUD);
     if (hud)
     {
         tHUD = CreateTimer(5.0, HUD, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
@@ -166,7 +166,7 @@ public Action:RoundFreezeEnd(Handle:event, const String:name[], bool:dontBroadca
         tFreeze = INVALID_HANDLE;
     }
     
-    new Float:freeze = GetConVarFloat(gCvars[CVAR_FREEZE]);
+    new Float:freeze = GetConVarFloat(gCvars.CVAR_FREEZE);
     if (freeze > 0)
     {
         FreezeZombies();
@@ -294,7 +294,7 @@ public Action:PlayerSpawn(Handle:event, const String:name[], bool:dontBroadcast)
         
         SetPlayerMoney(index, 0);
         
-        new bool:noblock = GetConVarBool(gCvars[CVAR_NOBLOCK]);
+        new bool:noblock = GetConVarBool(gCvars.CVAR_NOBLOCK);
         if (noblock)
         {
             NoCollide(index, true);
@@ -349,7 +349,7 @@ public Action:PlayerSpawn(Handle:event, const String:name[], bool:dontBroadcast)
             ZRiot_PrintToChat(index, "!market reminder");
         }
         
-        new bool:noblock = GetConVarBool(gCvars[CVAR_NOBLOCK]);
+        new bool:noblock = GetConVarBool(gCvars.CVAR_NOBLOCK);
         if (noblock)
         {
             NoCollide(index, false);
@@ -361,10 +361,10 @@ public Action:PlayerSpawn(Handle:event, const String:name[], bool:dontBroadcast)
         SetPlayerFOV(index, DEFAULT_FOV);
         SetEntityGravity(index, DEFAULT_GRAVITY);
         
-        new bool:cashfill = GetConVarBool(gCvars[CVAR_CASHFILL]);
+        new bool:cashfill = GetConVarBool(gCvars.CVAR_CASHFILL);
         if (cashfill)
         {
-            new cash = GetConVarInt(gCvars[CVAR_CASHAMOUNT]);
+            new cash = GetConVarInt(gCvars.CVAR_CASHAMOUNT);
             SetPlayerMoney(index, cash);
         }
         
@@ -422,11 +422,11 @@ public Action:PlayerHurt(Handle:event, const String:name[], bool:dontBroadcast)
         EmitSoundToAll(sound, index);
     }
     
-    new bool:napalm = GetConVarBool(gCvars[CVAR_NAPALM]);
+    new bool:napalm = GetConVarBool(gCvars.CVAR_NAPALM);
     
     if (napalm && StrEqual(weapon, "hegrenade", false))
     {
-        new Float:burntime = GetConVarFloat(gCvars[CVAR_NAPALM_TIME]);
+        new Float:burntime = GetConVarFloat(gCvars.CVAR_NAPALM_TIME);
         IgniteEntity(index, burntime);
     }
 }
@@ -458,7 +458,7 @@ public Action:PlayerDeath(Handle:event, const String:name[], bool:dontBroadcast)
         EmitSoundToAll(sound, index);
         
         new zombiecount = GetLiveZombieCount();
-        new zombiemax = GetConVarInt(gCvars[CVAR_ZOMBIEMAX]);
+        new zombiemax = GetConVarInt(gCvars.CVAR_ZOMBIEMAX);
         
         if (respawn || zombiecount > zombiemax)
         {
@@ -500,7 +500,7 @@ public Action:PlayerDeath(Handle:event, const String:name[], bool:dontBroadcast)
         }
     }
     
-    new Float:delay = GetConVarFloat(gCvars[CVAR_RAGDOLL_REMOVE]);
+    new Float:delay = GetConVarFloat(gCvars.CVAR_RAGDOLL_REMOVE);
     if (delay > 0.0)
     {
         new ragdoll = GetEntPropEnt(index, Prop_Send, "m_hRagdoll");

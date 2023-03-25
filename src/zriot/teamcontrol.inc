@@ -25,7 +25,7 @@ public Action:Command_JoinTeam(client, argc)
         return Plugin_Continue;
     }
     
-    new bool:enabled = GetConVarBool(gCvars[CVAR_ENABLE]);
+    new bool:enabled = GetConVarBool(gCvars.CVAR_ENABLE);
     if (!enabled)
     {
         return Plugin_Continue;
@@ -59,7 +59,7 @@ public Action:Command_Kill(client, argc)
         return Plugin_Continue;
     }
     
-    new bool:enabled = GetConVarBool(gCvars[CVAR_ENABLE]);
+    new bool:enabled = GetConVarBool(gCvars.CVAR_ENABLE);
     if (!enabled)
     {
         return Plugin_Continue;
@@ -77,7 +77,7 @@ public Action:Command_Spectate(client, argc)
         return Plugin_Continue;
     }
     
-    new bool:enabled = GetConVarBool(gCvars[CVAR_ENABLE]);
+    new bool:enabled = GetConVarBool(gCvars.CVAR_ENABLE);
     if (!enabled)
     {
         return Plugin_Continue;
@@ -91,7 +91,7 @@ public Action:Command_Spectate(client, argc)
 UpdateTeams()
 {
     decl String:zombieteam[8];
-    GetConVarString(gCvars[CVAR_ZOMBIETEAM], zombieteam, sizeof(zombieteam));
+    GetConVarString(gCvars.CVAR_ZOMBIETEAM, zombieteam, sizeof(zombieteam));
     
     if (StrEqual(zombieteam, "t", false))
     {

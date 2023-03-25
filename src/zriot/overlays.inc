@@ -11,11 +11,11 @@ ShowOverlays(Float:time, winner)
     decl String:overlay[64];
     if (winner == gZombieTeam)
     {
-        GetConVarString(gCvars[CVAR_OVERLAYS_ZOMBIE], overlay, sizeof(overlay));
+        GetConVarString(gCvars.CVAR_OVERLAYS_ZOMBIE, overlay, sizeof(overlay));
     }
     else if (winner == gHumanTeam)
     {
-        GetConVarString(gCvars[CVAR_OVERLAYS_HUMAN], overlay, sizeof(overlay));
+        GetConVarString(gCvars.CVAR_OVERLAYS_HUMAN, overlay, sizeof(overlay));
     }
         
     new maxplayers = GetMaxClients();
