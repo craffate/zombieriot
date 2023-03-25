@@ -50,7 +50,7 @@ GetClientTargeters(client, clients[], maxClients)
 
 FindClientNextTarget(client)
 {
-    new maxplayers = GetMaxClients();
+    new maxplayers = MaxClients;
     for (new x = 1; x <= maxplayers; x++)
     {
         if (!IsClientInGame(x))
@@ -69,7 +69,7 @@ FindClientNextTarget(client)
 
 RemoveTargeters(client)
 {
-    new maxplayers = GetMaxClients();
+    new maxplayers = MaxClients;
     for (new x = 1; x <= maxplayers; x++)
     {
         bTargeted[client][x] = false;

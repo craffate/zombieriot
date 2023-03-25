@@ -114,7 +114,7 @@ UpdateTeams()
 
 ResetZombies(bool:switchteam)
 {
-    new maxplayers = GetMaxClients();
+    new maxplayers = MaxClients;
     for (new x = 1; x <= maxplayers; x++)
     {
         if (!IsClientInGame(x))
@@ -183,7 +183,7 @@ stock AssignTeamClient(client, bool:spawn)
 
 stock AssignTeamAll(bool:spawn)
 {
-    new maxplayers = GetMaxClients();
+    new maxplayers = MaxClients;
     
     new clients[maxplayers];
     new count = 0;

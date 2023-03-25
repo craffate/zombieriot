@@ -186,7 +186,7 @@ public OnClientDisconnect(client)
     
     new count;
     
-    new maxplayers = GetMaxClients();
+    new maxplayers = MaxClients;
     for (new x = 1; x <= maxplayers; x++)
     {
         if (!IsClientInGame(x) || !IsPlayerHuman(x) || GetClientTeam(x) <= CS_TEAM_SPECTATOR)
@@ -236,7 +236,7 @@ ZRiotEnd()
     ServerCommand("bot_all_weapons");
     ServerCommand("bot_kick");
     
-    new maxplayers = GetMaxClients();
+    new maxplayers = MaxClients;
     for (new x = 1; x <= maxplayers; x++)
     {
         if (!IsClientInGame(x))

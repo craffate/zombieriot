@@ -191,7 +191,7 @@ BeginDay()
     
     new bool:override = ExplodeZombieOverrides(gDay);
     
-    new maxplayers = GetMaxClients();
+    new maxplayers = MaxClients;
     for (new x = 1; x <= maxplayers; x++)
     {
         if (!IsClientInGame(x))

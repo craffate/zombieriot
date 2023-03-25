@@ -160,7 +160,7 @@ RoundDraw()
 
 FreezeZombies()
 {
-    new maxplayers = GetMaxClients();
+    new maxplayers = MaxClients;
     for (new x = 1; x <= maxplayers; x++)
     {
         if (!IsClientInGame(x) || !IsPlayerAlive(x) || !IsPlayerZombie(x))
@@ -175,7 +175,7 @@ FreezeZombies()
 
 public Action:UnfreezeZombies(Handle:timer)
 {
-    new maxplayers = GetMaxClients();
+    new maxplayers = MaxClients;
     for (new x = 1; x <= maxplayers; x++)
     {
         if (!IsClientInGame(x) || !IsPlayerAlive(x) || !IsPlayerZombie(x))

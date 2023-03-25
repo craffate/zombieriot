@@ -18,7 +18,7 @@ ShowOverlays(Float:time, winner)
         GetConVarString(gCvars.CVAR_OVERLAYS_HUMAN, overlay, sizeof(overlay));
     }
         
-    new maxplayers = GetMaxClients();
+    new maxplayers = MaxClients;
     for (new x = 1; x <= maxplayers; x++)
     {
         if (!IsClientInGame(x))
@@ -32,7 +32,7 @@ ShowOverlays(Float:time, winner)
 
 public Action:KillOverlays(Handle:timer)
 {
-    new maxplayers = GetMaxClients();
+    new maxplayers = MaxClients;
     for (new x = 1; x <= maxplayers; x++)
     {
         if (!IsClientInGame(x))

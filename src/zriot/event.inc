@@ -405,7 +405,7 @@ public Action:PlayerHurt(Handle:event, const String:name[], bool:dontBroadcast)
         TargetPlayer(attacker, index);
     }
     
-    new maxplayers = GetMaxClients();
+    new maxplayers = MaxClients;
     new clients[maxplayers];
     new numClients = GetClientTargeters(index, clients, maxplayers);
     

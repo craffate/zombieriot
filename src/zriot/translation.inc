@@ -37,7 +37,7 @@ stock ZRiot_PrintToChat(client, any:...)
         
         PrintToServer(phrase);
         
-        new maxplayers = GetMaxClients();
+        new maxplayers = MaxClients;
         for (new x = 1; x <= maxplayers; x++)
         {
             if (IsClientInGame(x))

@@ -69,7 +69,7 @@ stock UpdateHUDClient(client)
 
 stock UpdateHUDAll()
 {
-    new maxplayers = GetMaxClients();
+    new maxplayers = MaxClients;
     
     new clients[maxplayers];
     new count = 0;
@@ -90,7 +90,7 @@ stock UpdateHUDAll()
 GetLiveHumanCount()
 {
     new humansleft = 0;
-    new maxplayers = GetMaxClients();
+    new maxplayers = MaxClients;
     for (new x = 1; x <= maxplayers; x++)
     {
         if (!IsClientInGame(x) || !IsPlayerAlive(x) || !IsPlayerHuman(x))

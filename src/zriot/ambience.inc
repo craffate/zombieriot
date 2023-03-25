@@ -74,7 +74,7 @@ StopAmbience()
     decl String:sound[64];
     GetConVarString(gCvars.CVAR_AMBIENCE_FILE, sound, sizeof(sound));
     
-    new maxplayers = GetMaxClients();
+    new maxplayers = MaxClients;
     for (new x = 1; x <= maxplayers; x++)
     {
         if (!IsClientInGame(x))
