@@ -87,7 +87,7 @@ public OnPluginStart()
     
     // ======================================================================
     
-    CreateConVar("gs_zombieriot_version", VERSION, "[ZRiot] Current version of this plugin", FCVAR_PLUGIN|FCVAR_SPONLY|FCVAR_UNLOGGED|FCVAR_DONTRECORD|FCVAR_REPLICATED|FCVAR_NOTIFY);
+    CreateConVar("gs_zombieriot_version", VERSION, "[ZRiot] Current version of this plugin", FCVAR_SPONLY|FCVAR_UNLOGGED|FCVAR_DONTRECORD|FCVAR_REPLICATED|FCVAR_NOTIFY);
     
     // ======================================================================
     
