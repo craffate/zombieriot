@@ -21,21 +21,21 @@ enum struct ZRiot_ZombieData
 
 #define MAXZOMBIES 25
 
-new String:modelSuffix[8][16] = {".dx80.vtx", ".dx90.vtx", ".mdl", ".phy", ".sw.vtx", ".vvd", ".xbox", ".xbox.vtx"};
+char modelSuffix[8][16] = {".dx80.vtx", ".dx90.vtx", ".mdl", ".phy", ".sw.vtx", ".vvd", ".xbox", ".xbox.vtx"};
 
-new Handle:kvZombies = INVALID_HANDLE;
+Handle kvZombies = INVALID_HANDLE;
 
-new Handle:adtModels = INVALID_HANDLE;
+Handle adtModels = INVALID_HANDLE;
 
 ZRiot_ZombieData arrayZombies[MAXZOMBIES];
-new Handle:adtZombies = INVALID_HANDLE;
-new zCount;
+Handle adtZombies = INVALID_HANDLE;
+int zCount;
 
-FileLinesToArray(Handle:array, const Handle:file)
+FileLinesToArray(Handle array, const Handle file)
 {
     ClearArray(array);
     
-    decl String:line[128];
+    char line[128];
     
     while(!IsEndOfFile(file) && ReadFileLine(file, line, sizeof(line)))
     {
@@ -55,9 +55,9 @@ FileLinesToArray(Handle:array, const Handle:file)
     }
 }
     
-LoadZombieData(bool:defaultconfig)
+LoadZombieData(bool defaultconfig)
 {
-    decl String:path[PLATFORM_MAX_PATH];
+    char path[PLATFORM_MAX_PATH];
     Format(path, sizeof(path), "%s/zombies.txt", gMapConfig);
     
     if (!defaultconfig && !FileExists(path))
@@ -83,10 +83,10 @@ LoadZombieData(bool:defaultconfig)
         SetFailState("No zombie data defined in \"%s\"", path);
     }
     
-    decl String:name[64];
-    decl String:type[32];
-    decl String:model[256];
-    decl String:zvision[256];
+    char name[64];
+    char type[32];
+    char model[256];
+    char zvision[256];
     
     zCount = 0;
     
@@ -120,10 +120,10 @@ LoadZombieData(bool:defaultconfig)
 
 LoadModelData()
 {
-    decl String:path[PLATFORM_MAX_PATH];
+    char path[PLATFORM_MAX_PATH];
     BuildPath(Path_SM, path, sizeof(path), "configs/zriot/models.txt");
     
-    new Handle:fileModels = OpenFile(path, "r");
+    Handle fileModels = OpenFile(path, "r");
     
     if (fileModels == INVALID_HANDLE)
     {
@@ -144,13 +144,13 @@ LoadModelData()
         SetFailState("No models listed in models.txt, please add some models then restart");
     }
     
-    decl String:model[256];
-    decl String:modelpath[256];
+    char model[256];
+    char modelpath[256];
     
-    new modelsize = GetArraySize(adtModels);
-    for (new x = 0; x < modelsize; x++)
+    int modelsize = GetArraySize(adtModels);
+    for (int x = 0; x < modelsize; x++)
     {
-        for (new y = 0; y < 8; y++)
+        for (int y = 0; y < 8; y++)
         {
             GetArrayString(adtModels, x, model, sizeof(model));
             Format(modelpath, sizeof(modelpath), "%s%s", model, modelSuffix[y]);
@@ -167,24 +167,24 @@ LoadModelData()
 
 LoadDownloadData()
 {
-    decl String:path[PLATFORM_MAX_PATH];
+    char path[PLATFORM_MAX_PATH];
     BuildPath(Path_SM, path, sizeof(path), "configs/zriot/downloads.txt");
     
-    new Handle:fileDownloads = OpenFile(path, "r");
+    Handle fileDownloads = OpenFile(path, "r");
     
     if (fileDownloads == INVALID_HANDLE)
     {
         SetFailState("\"%s\" missing from server", path);
     }
     
-    new Handle:arrayDownloads = CreateArray(256, 0);
+    Handle arrayDownloads = CreateArray(256, 0);
     
     FileLinesToArray(arrayDownloads, fileDownloads);
     
-    decl String:file[256];
+    char file[256];
     
-    new downloadsize = GetArraySize(arrayDownloads);
-    for (new x = 0; x < downloadsize; x++)
+    int downloadsize = GetArraySize(arrayDownloads);
+    for (int x = 0; x < downloadsize; x++)
     {
         GetArrayString(arrayDownloads, x, file, sizeof(file));
         if (FileExists(file))
@@ -201,9 +201,9 @@ LoadDownloadData()
     CloseHandle(arrayDownloads);
 }
 
-FindZombieIDByName(const String:name[])
+FindZombieIDByName(const char[] name)
 {
-    for (new x = 0; x < zCount; x++)
+    for (int x = 0; x < zCount; x++)
     {
         if (StrEqual(name, arrayZombies[x].data_name, false))
         {
@@ -214,7 +214,7 @@ FindZombieIDByName(const String:name[])
     return -1;
 }
 
-bool:IsValidZombieID(zombieid)
+bool IsValidZombieID(zombieid)
 {
     if (zombieid > -1 && zombieid < zCount)
     {
@@ -224,7 +224,7 @@ bool:IsValidZombieID(zombieid)
     return false;
 }
 
-bool:IsOverrideRequired(zombieid)
+bool IsOverrideRequired(zombieid)
 {
     if (IsValidZombieID(zombieid))
     {
@@ -238,7 +238,7 @@ ApplyZombieModel(client, zombieid)
 {
     if (IsValidZombieID(zombieid))
     {
-        decl String:model[256];
+        char model[256];
         strcopy(model, sizeof(model), arrayZombies[zombieid].data_model);
         
         PrecacheModel(model);
@@ -246,7 +246,7 @@ ApplyZombieModel(client, zombieid)
     }
 }
 
-GetZombieZVision(zombieid, String:zvision[], maxlen)
+GetZombieZVision(zombieid, char[] zvision, maxlen)
 {
     if (IsValidZombieID(zombieid))
     {
@@ -278,7 +278,7 @@ ApplyZombieGravity(client, zombieid)
     }
 }
 
-Float:GetZombieJump(zombieid)
+float GetZombieJump(zombieid)
 {
     if (IsValidZombieID(zombieid))
     {

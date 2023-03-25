@@ -6,7 +6,7 @@
  * ====================
  */
 
-FormatTextString(String:text[], maxlen)
+FormatTextString(char[] text, maxlen)
 {
     Format(text, maxlen, "@green[%t] @default%s", "ZRiot", text);
     
@@ -15,9 +15,9 @@ FormatTextString(String:text[], maxlen)
     ReplaceString(text, maxlen, "@green","\x04");
 }
 
-stock ZRiot_PrintToChat(client, any:...)
+stock ZRiot_PrintToChat(client, any...)
 {
-    decl String:phrase[192];
+    char phrase[192];
     
     if (client)
     {
@@ -37,8 +37,8 @@ stock ZRiot_PrintToChat(client, any:...)
         
         PrintToServer(phrase);
         
-        new maxplayers = MaxClients;
-        for (new x = 1; x <= maxplayers; x++)
+        int maxplayers = MaxClients;
+        for (int x = 1; x <= maxplayers; x++)
         {
             if (IsClientInGame(x))
             {
@@ -53,26 +53,26 @@ stock ZRiot_PrintToChat(client, any:...)
     }
 }
 
-stock ZRiot_PrintCenterText(client, any:...)
+stock ZRiot_PrintCenterText(client, any...)
 {
     SetGlobalTransTarget(client);
     
-    decl String:phrase[192];
+    char phrase[192];
     
     VFormat(phrase, sizeof(phrase), "%t", 2);
     
     PrintCenterText(client, phrase);
 }
 
-stock ZRiot_HudHint(client, any:...)
+stock ZRiot_HudHint(client, any...)
 {
     SetGlobalTransTarget(client);
     
-    decl String:phrase[192];
+    char phrase[192];
     
     VFormat(phrase, sizeof(phrase), "%t", 2);
     
-    new Handle:hHintText = StartMessageOne("HintText", client);
+    Handle hHintText = StartMessageOne("HintText", client);
     if (hHintText != INVALID_HANDLE)
     {
         BfWriteByte(hHintText, -1);
@@ -87,12 +87,12 @@ stock ZRiot_HudHint(client, any:...)
     }
 }
 
-stock ZRiot_PrintToServer(any:...)
+stock ZRiot_PrintToServer(any...)
 {
     SetGlobalTransTarget(LANG_SERVER);
     
-    decl String:phrase[192];
-    decl String:buffer[192];
+    char phrase[192];
+    char buffer[192];
     
     VFormat(phrase, sizeof(phrase), "%t", 1);
     Format(buffer, sizeof(buffer), "[%t] %s", "ZRiot", phrase);
@@ -100,20 +100,20 @@ stock ZRiot_PrintToServer(any:...)
     PrintToServer(buffer);
 }
 
-stock ZRiot_LogMessage(any:...)
+stock ZRiot_LogMessage(any...)
 {
     SetGlobalTransTarget(LANG_SERVER);
     
-    decl String:phrase[192];
+    char phrase[192];
     
     VFormat(phrase, sizeof(phrase), "%t", 1);
     
     LogMessage(phrase);
 }
 
-stock ZRiot_ReplyToCommand(client, any:...)
+stock ZRiot_ReplyToCommand(client, any...)
 {
-    decl String:phrase[192];
+    char phrase[192];
     
     SetGlobalTransTarget(client);
         

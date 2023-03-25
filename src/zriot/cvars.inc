@@ -105,9 +105,9 @@ UnhookCvars()
     UnhookConVarChange(FindConVar("mp_restartgame"), RestartGameHook);
 }
 
-public EnableHook(Handle:convar, const String:oldValue[], const String:newValue[])
+public EnableHook(Handle convar, const char[] oldValue, const char[] newValue)
 {
-    new bool:enable = bool:StringToInt(newValue);
+    bool enable = StringToInt(newValue) ? true : false;
     
     if (enable)
     {
@@ -131,17 +131,17 @@ public EnableHook(Handle:convar, const String:oldValue[], const String:newValue[
     }
 }
 
-public AutoTeamBalanceHook(Handle:convar, const String:oldValue[], const String:newValue[])
+public AutoTeamBalanceHook(Handle convar, const char[] oldValue, const char[] newValue)
 {
     SetConVarBool(convar, false);
 }
 
-public LimitTeamsHook(Handle:convar, const String:oldValue[], const String:newValue[])
+public LimitTeamsHook(Handle convar, const char[] oldValue, const char[] newValue)
 {
     SetConVarInt(convar, 0);
 }
 
-public ZombieTeamHook(Handle:convar, const String:oldValue[], const String:newValue[])
+public ZombieTeamHook(Handle convar, const char[] oldValue, const char[] newValue)
 {
     if (StrEqual(newValue, "t", false) || StrEqual(newValue, "ct", false))
     {
@@ -149,7 +149,7 @@ public ZombieTeamHook(Handle:convar, const String:oldValue[], const String:newVa
     }
 }
 
-public RestartGameHook(Handle:convar, const String:oldValue[], const String:newValue[])
+public RestartGameHook(Handle convar, const char[] oldValue, const char[] newValue)
 {
     gDay = 0;
     

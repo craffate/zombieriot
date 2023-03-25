@@ -35,7 +35,7 @@
 #include "zriot/commands"
 #include "zriot/event"
 
-public Plugin:myinfo =
+public Plugin myinfo =
 {
     name = "Zombie Riot", 
     author = "Greyscale", 
@@ -44,7 +44,7 @@ public Plugin:myinfo =
     url = ""
 };
 
-public APLRes:AskPluginLoad2(Handle:myself, bool:late, String:error[], err_max)
+public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, err_max)
 {
     CreateGlobals();
     
@@ -99,7 +99,7 @@ public OnPluginEnd()
     ZRiotEnd();
 }
 
-public OnLibraryRemoved(const String:name[])
+public OnLibraryRemoved(const char[] name)
 {
 	if (StrEqual(name, "market"))
 	{
@@ -107,7 +107,7 @@ public OnLibraryRemoved(const String:name[])
 	}
 }
  
-public OnLibraryAdded(const String:name[])
+public OnLibraryAdded(const char[] name)
 {
 	if (StrEqual(name, "market"))
 	{
@@ -140,12 +140,12 @@ public OnConfigsExecuted()
     
     LoadAmbienceData();
     
-    decl String:mapconfig[PLATFORM_MAX_PATH];
+    char mapconfig[PLATFORM_MAX_PATH];
     
     GetCurrentMap(mapconfig, sizeof(mapconfig));
     Format(mapconfig, sizeof(mapconfig), "sourcemod/zombieriot/%s.cfg", mapconfig);
     
-    decl String:path[PLATFORM_MAX_PATH];
+    char path[PLATFORM_MAX_PATH];
     Format(path, sizeof(path), "cfg/%s", mapconfig);
     
     if (FileExists(path))
@@ -156,12 +156,12 @@ public OnConfigsExecuted()
 
 public OnClientPutInServer(client)
 {
-    new bool:fakeclient = IsFakeClient(client);
+    bool fakeclient = IsFakeClient(client);
     
     InitClientDeathCount(client);
     
-    new deathcount = GetClientDeathCount(client);
-    new deaths_before_zombie = GetDayDeathsBeforeZombie(gDay);
+    int deathcount = GetClientDeathCount(client);
+    int deaths_before_zombie = GetDayDeathsBeforeZombie(gDay);
     
     bZombie[client] = !fakeclient ? ((deaths_before_zombie > 0) && (fakeclient || (deathcount >= deaths_before_zombie))) : true;
     
@@ -184,10 +184,10 @@ public OnClientDisconnect(client)
     if (!IsPlayerHuman(client))
         return;
     
-    new count;
+    int count;
     
-    new maxplayers = MaxClients;
-    for (new x = 1; x <= maxplayers; x++)
+    int maxplayers = MaxClients;
+    for (int x = 1; x <= maxplayers; x++)
     {
         if (!IsClientInGame(x) || !IsPlayerHuman(x) || GetClientTeam(x) <= CS_TEAM_SPECTATOR)
             continue;
@@ -215,7 +215,7 @@ MapChangeCleanup()
 
 CheckMapConfig()
 {
-    decl String:mapname[64];
+    char mapname[64];
     GetCurrentMap(mapname, sizeof(mapname));
     
     Format(gMapConfig, sizeof(gMapConfig), "%s/%s", gMapConfig, mapname);
@@ -236,8 +236,8 @@ ZRiotEnd()
     ServerCommand("bot_all_weapons");
     ServerCommand("bot_kick");
     
-    new maxplayers = MaxClients;
-    for (new x = 1; x <= maxplayers; x++)
+    int maxplayers = MaxClients;
+    for (int x = 1; x <= maxplayers; x++)
     {
         if (!IsClientInGame(x))
         {

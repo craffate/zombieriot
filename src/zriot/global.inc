@@ -6,9 +6,9 @@
  * ====================
  */
 
-new Handle:hOnClientZombie = INVALID_HANDLE;
-new Handle:hOnClientHuman = INVALID_HANDLE;
-new Handle:hOnClientHUDUpdate = INVALID_HANDLE;
+Handle hOnClientZombie = INVALID_HANDLE;
+Handle hOnClientHuman = INVALID_HANDLE;
+Handle hOnClientHUDUpdate = INVALID_HANDLE;
 
 CreateGlobals()
 {
@@ -23,37 +23,37 @@ CreateGlobals()
     hOnClientHUDUpdate = CreateGlobalForward("ZRiot_OnClientHUDUpdate", ET_Ignore, Param_Cell, Param_String);
 }
 
-public Native_IsClientZombie(Handle:plugin, argc)
+public Native_IsClientZombie(Handle plugin, argc)
 {
-    new client = GetNativeCell(1);
+    int client = GetNativeCell(1);
     if (!client)
         ThrowNativeError(SP_ERROR_INDEX, "Client index %d is not in the game", client);
     
     return bZombie[GetNativeCell(1)];
 }
 
-public Native_GetZombieTeam(Handle:plugin, argc)
+public Native_GetZombieTeam(Handle plugin, argc)
 {
     return gZombieTeam;
 }
 
-public Native_GetHumanTeam(Handle:plugin, argc)
+public Native_GetHumanTeam(Handle plugin, argc)
 {
     return gHumanTeam;
 }
 
-public Native_Zombie(Handle:plugin, argc)
+public Native_Zombie(Handle plugin, argc)
 {
-    new client = GetNativeCell(1);
+    int client = GetNativeCell(1);
     if (!client)
         ThrowNativeError(SP_ERROR_INDEX, "Client index %d is not in the game", client);
     
     ZRiot_Zombie(client);
 }
 
-public Native_Human(Handle:plugin, argc)
+public Native_Human(Handle plugin, argc)
 {
-    new client = GetNativeCell(1);
+    int client = GetNativeCell(1);
     if (!client)
         ThrowNativeError(SP_ERROR_INDEX, "Client index %d is not in the game", client);
     

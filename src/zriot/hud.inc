@@ -6,43 +6,43 @@
  * ====================
  */
 
-public Action:HUD(Handle:timer)
+public Action HUD(Handle timer)
 {
     UpdateHUDAll();
 }
 
 UpdateHUD(clients[], numClients)
 {
-    new bool:hud = GetConVarBool(gCvars.CVAR_HUD);
+    bool hud = GetConVarBool(gCvars.CVAR_HUD);
     
     if (tHUD == INVALID_HANDLE || !hud)
     {
         return;
     }
     
-    new bool:targeting = GetConVarBool(gCvars.CVAR_TARGETING);
+    bool targeting = GetConVarBool(gCvars.CVAR_TARGETING);
     
-    new livezombies = GetLiveZombieCount();
-    new livehumans = GetLiveHumanCount();
+    int livezombies = GetLiveZombieCount();
+    int livehumans = GetLiveHumanCount();
     
-    decl String:display[32];
-    decl String:targetname[64];
+    char display[32];
+    char targetname[64];
     
     GetDayDisplay(gDay, display, sizeof(display));
     
-    for (new x = 0; x < numClients; x++)
+    for (int x = 0; x < numClients; x++)
     {
         if (!IsClientInGame(clients[x]) || IsFakeClient(clients[x]) || GetClientTeam(clients[x]) == CS_TEAM_NONE)
         {
             continue;
         }
         
-        new target = GetClientTarget(clients[x]);
+        int target = GetClientTarget(clients[x]);
         if (targeting && target != -1 && IsPlayerZombie(target) && GetClientTeam(clients[x]) != CS_TEAM_SPECTATOR)
         {
             GetClientName(target, targetname, sizeof(targetname));
             
-            new health = GetClientHealth(target);
+            int health = GetClientHealth(target);
             health = (health >= 0) ? health : 0;
             
             ZRiot_HudHint(clients[x], "HUD target", gDay + 1, dCount, display, livezombies, livehumans, target, health);
@@ -61,7 +61,7 @@ stock UpdateHUDClient(client)
         return;
     }
     
-    new clients[1];
+    int clients[1];
     clients[0] = client;
 	
     UpdateHUD(clients, 1);
@@ -69,12 +69,12 @@ stock UpdateHUDClient(client)
 
 stock UpdateHUDAll()
 {
-    new maxplayers = MaxClients;
+    int maxplayers = MaxClients;
     
-    new clients[maxplayers];
-    new count = 0;
+    int[] clients = new int[maxplayers];
+    int count = 0;
     
-    for (new x = 1; x <= maxplayers; x++)
+    for (int x = 1; x <= maxplayers; x++)
     {
         if (!IsClientInGame(x) || GetClientTeam(x) == CS_TEAM_NONE)
         {
@@ -89,9 +89,9 @@ stock UpdateHUDAll()
         
 GetLiveHumanCount()
 {
-    new humansleft = 0;
-    new maxplayers = MaxClients;
-    for (new x = 1; x <= maxplayers; x++)
+    int humansleft = 0;
+    int maxplayers = MaxClients;
+    for (int x = 1; x <= maxplayers; x++)
     {
         if (!IsClientInGame(x) || !IsPlayerAlive(x) || !IsPlayerHuman(x))
         {

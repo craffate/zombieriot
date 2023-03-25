@@ -28,32 +28,32 @@
 #define DEFAULT_FOV 90
 #define DEFAULT_GRAVITY 1.0
 
-new bool:market;
+bool market;
 
-new String:gMapConfig[PLATFORM_MAX_PATH];
+char gMapConfig[PLATFORM_MAX_PATH];
 
-new gDay;
+int gDay;
 
-new gZombieTeam;
-new gHumanTeam;
+int gZombieTeam;
+int gHumanTeam;
 
-new gZombiesKilled;
+int gZombiesKilled;
 
-new dxLevel[MAXPLAYERS+1];
+int dxLevel[MAXPLAYERS+1];
 
-new bool:bZombie[MAXPLAYERS+1];
-new Handle:trieDeaths = INVALID_HANDLE;
+bool bZombie[MAXPLAYERS+1];
+Handle trieDeaths = INVALID_HANDLE;
 
-new gRespawnTime[MAXPLAYERS+1];
-new Handle:tRespawn[MAXPLAYERS+1];
-new Handle:tZVision[MAXPLAYERS+1];
+int gRespawnTime[MAXPLAYERS+1];
+Handle tRespawn[MAXPLAYERS+1];
+Handle tZVision[MAXPLAYERS+1];
 
-new bool:bZVision[MAXPLAYERS+1];
+bool bZVision[MAXPLAYERS+1];
 
-new Handle:tHUD = INVALID_HANDLE;
-new Handle:tFreeze = INVALID_HANDLE;
+Handle tHUD = INVALID_HANDLE;
+Handle tFreeze = INVALID_HANDLE;
 
-new QueryCookie:mat_dxlevel;
+QueryCookie mat_dxlevel;
 
 FindClientDXLevel(client)
 {
@@ -65,7 +65,7 @@ FindClientDXLevel(client)
     mat_dxlevel = QueryClientConVar(client, "mat_dxlevel", DXLevelClientQuery);
 }
 
-public DXLevelClientQuery(QueryCookie:cookie, client, ConVarQueryResult:result, const String:cvarName[], const String:cvarValue[])
+public DXLevelClientQuery(QueryCookie cookie, client, ConVarQueryResult result, const char[] cvarName, const char[] cvarValue)
 {
     if (cookie != mat_dxlevel)
     {
@@ -82,7 +82,7 @@ public DXLevelClientQuery(QueryCookie:cookie, client, ConVarQueryResult:result, 
     dxLevel[client] = StringToInt(cvarValue);
 }
 
-DisplayClientOverlay(client, const String:overlay[])
+DisplayClientOverlay(client, const char[] overlay)
 {
     if (!dxLevel[client])
     {
@@ -103,14 +103,14 @@ DisplayClientOverlay(client, const String:overlay[])
 
 stock GotoNextMap()
 {
-    new Handle:timelimit = FindConVar("mp_timelimit");
+    Handle timelimit = FindConVar("mp_timelimit");
     
     if (timelimit == INVALID_HANDLE)
     {
         return;
     }
     
-    new flags = GetConVarFlags(timelimit) & FCVAR_NOTIFY;
+    int flags = GetConVarFlags(timelimit) & FCVAR_NOTIFY;
     SetConVarFlags(timelimit, flags);
     
     SetConVarInt(timelimit, 1);

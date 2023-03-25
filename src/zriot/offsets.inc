@@ -6,18 +6,18 @@
  * ====================
  */
 
-new offsBaseVelocity;
-new offsGetVelocity2;
-new offsSpeed;
-new offsCollision;
-new offsMoney;
-new offsFOV;
-new offsBuyZone;
-new offsFadeMin;
-new offsFadeMax;
+int offsBaseVelocity;
+int offsGetVelocity2;
+int offsSpeed;
+int offsCollision;
+int offsMoney;
+int offsFOV;
+int offsBuyZone;
+int offsFadeMin;
+int offsFadeMax;
 
-new Handle:hGameConf = INVALID_HANDLE;
-new Handle:hTerminateRound = INVALID_HANDLE;
+Handle hGameConf = INVALID_HANDLE;
+Handle hTerminateRound = INVALID_HANDLE;
 
 FindOffsets()
 {
@@ -87,18 +87,18 @@ SetupGameData()
     hTerminateRound = EndPrepSDKCall();
 }
 
-SetPlayerVelocity(client, const Float:vec[3])
+SetPlayerVelocity(client, const float vec[3])
 {
     SetEntDataVector(client, offsBaseVelocity, vec, true);
 }
 
-SetPlayerSpeed(client, Float:speed)
+SetPlayerSpeed(client, float speed)
 {
-    new Float:newspeed = speed / 300.0;
-    SetEntDataFloat(client, offsSpeed, newspeed, true);
+    float intspeed = speed / 300.0;
+    SetEntDataFloat(client, offsSpeed, intspeed, true);
 }
 
-NoCollide(client, bool:nocollide)
+NoCollide(client, bool nocollide)
 {
     if (nocollide)
     {
@@ -120,17 +120,17 @@ SetPlayerFOV(client, fov)
     SetEntData(client, offsFOV, fov, 1, true);
 }
 
-bool:IsClientInBuyZone(client)
+bool IsClientInBuyZone(client)
 {
     return bool:GetEntData(client, offsBuyZone);
 }
 
-SetPlayerMinDist(client, Float:mindist)
+SetPlayerMinDist(client, float mindist)
 {
     SetEntDataFloat(client, offsFadeMin, mindist);
 }
 
-SetPlayerMaxDist(client, Float:maxdist)
+SetPlayerMaxDist(client, float maxdist)
 {
     SetEntDataFloat(client, offsFadeMax, maxdist);
 }
@@ -143,8 +143,8 @@ SetPlayerMaxDist(client, Float:maxdist)
  */
 stock RemoveAllPlayersWeapons(client)
 {
-    new weaponindex;
-    for (new weaponslot = 0; weaponslot < 5; weaponslot++)
+    int weaponindex;
+    for (int weaponslot = 0; weaponslot < 5; weaponslot++)
     {
         weaponindex = GetPlayerWeaponSlot(client, weaponslot);
         if (weaponindex != -1)
@@ -165,7 +165,7 @@ stock RemoveAllPlayersWeapons(client)
 stock WepLib_GrenadeStripAll(client)
 {
     // While GetPlayerWeaponSlot returns a valid projectile, remove it and then test again.
-    new grenade = GetPlayerWeaponSlot(client, 3);
+    int grenade = GetPlayerWeaponSlot(client, 3);
     while (grenade != -1)
     {
         Util_RemovePlayerItem(client, grenade);
@@ -185,7 +185,7 @@ stock Util_RemovePlayerItem(client, weaponindex)
     RemoveEdict(weaponindex);
 }
 
-TerminateRound(Float:delay, reason)
+TerminateRound(float delay, reason)
 {
     if (tHUD == INVALID_HANDLE)
         return;

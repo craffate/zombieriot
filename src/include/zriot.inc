@@ -11,7 +11,7 @@
  * @param client   Client index.
  * @return   True if the player is a zombie, and false if human.
  */   
-native bool:ZRiot_IsClientZombie(client);
+native bool ZRiot_IsClientZombie(client);
 
 /**
  * Retrieves the team index of the zombies
