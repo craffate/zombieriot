@@ -1,7 +1,7 @@
 /**
  * vim: set ts=4 :
  * =============================================================================
- * SourceMod (C)2004-2017 AlliedModders LLC.  All rights reserved.
+ * SourceMod (C)2004-2008 AlliedModders LLC.  All rights reserved.
  * =============================================================================
  *
  * This file is part of the SourceMod/SourcePawn SDK.
@@ -9,7 +9,7 @@
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License, version 3.0, as published by the
  * Free Software Foundation.
- *
+ * 
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
@@ -30,22 +30,23 @@
  * Version: $Id$
  */
 
-#if defined _sdktools_entinput_included
+#if defined _sdktools_client_included
  #endinput
 #endif
-#define _sdktools_entinput_included
+#define _sdktools_client_included
 
 /**
- * Invokes a named input method on an entity.
+ * Sets the client to an inactive state waiting for a new map
  *
- * After completion (successful or not), the current global variant is re-initialized.
- *
- * @param dest          Destination entity index.
- * @param input         Input action.
- * @param activator     Entity index which initiated the sequence of actions (-1 for a NULL entity).
- * @param caller        Entity index from which this event is sent (-1 for a NULL entity).
- * @param outputid      Unknown.
- * @return              True if successful otherwise false.
- * @error               Invalid entity index or no mod support.
+ * @param client        The client index
+ * @error               Invalid client index.
  */
-native bool AcceptEntityInput(int dest, const char[] input, int activator=-1, int caller=-1, int outputid=0);
+native void InactivateClient(int client);
+
+/**
+ * Reconnect a client without dropping the netchannel
+ *
+ * @param client        The client index
+ * @error               Invalid client index.
+ */
+native void ReconnectClient(int client);
