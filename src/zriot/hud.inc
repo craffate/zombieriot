@@ -56,7 +56,7 @@ UpdateHUD(clients[], numClients)
 
 stock UpdateHUDClient(client)
 {
-    if (!IsClientInGame(client) || GetClientTeam(x) == CS_TEAM_NONE)
+    if (!IsClientInGame(client) || GetClientTeam(client) == CS_TEAM_NONE)
     {
         return;
     }
