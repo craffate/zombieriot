@@ -182,9 +182,9 @@ public Action RoundEnd(Handle event, const char[] name, bool dontBroadcast)
     
     CreateTimer(0.0, AssignTeamTimer);
     
-    int reason = GetEventInt(event, "reason");
+    CSRoundEndReason reason = CSRoundEndReason:GetEventInt(event, "reason");
     
-    if (reason == CTs_Win || reason == Terrorists_Win)
+    if (reason == CSRoundEnd_CTWin || reason == CSRoundEnd_TerroristWin)
     {
         int winner = GetEventInt(event, "winner");
         
@@ -472,7 +472,7 @@ public Action PlayerDeath(Handle event, const char[] name, bool dontBroadcast)
     
         if (gZombiesKilled >= GetDayCount(gDay) && respawn)
         {
-            TerminateRound(5.0, CTs_Win);
+            TerminateRound(5.0, CSRoundEnd_CTWin);
         }
     }
     else
@@ -496,7 +496,7 @@ public Action PlayerDeath(Handle event, const char[] name, bool dontBroadcast)
         
         if (GetLiveHumanCount() <= 0 && respawn)
         {
-            TerminateRound(5.0, Terrorists_Win);
+            TerminateRound(5.0, CSRoundEnd_TerroristWin);
         }
     }
     
