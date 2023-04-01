@@ -75,8 +75,6 @@ stock ZRiot_HudHint(client, any...)
     Handle hHintText = StartMessageOne("HintText", client);
     if (hHintText != INVALID_HANDLE)
     {
-        BfWriteByte(hHintText, -1);
-        
         Call_StartForward(hOnClientHUDUpdate);
         Call_PushCell(client);
         Call_PushStringEx(phrase, sizeof(phrase), SM_PARAM_STRING_COPY, SM_PARAM_COPYBACK);
