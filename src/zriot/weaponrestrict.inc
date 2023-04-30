@@ -275,5 +275,7 @@ public Action RemoveSpawnWeapon(Handle timer, any weapon)
     if (IsValidEdict(weapon))
     {
         RemoveEdict(weapon);
+        return Plugin_Continue;
 	}
+    return Plugin_Handled;
 }

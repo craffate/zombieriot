@@ -22,12 +22,12 @@ public Action Command_NightVision(client, argc)
     bool enabled = GetConVarBool(gCvars.CVAR_ENABLE);
     if (!allow_disable || !enabled)
     {
-        return;
+        return Plugin_Handled;
     }
     
     if (!IsPlayerZombie(client))
     {
-        return;
+        return Plugin_Handled;
     }
     
     bZVision[client] = !bZVision[client];
@@ -41,6 +41,7 @@ public Action Command_NightVision(client, argc)
         StopZVision(client);
         ClientCommand(client, "r_screenoverlay \"\"");
     }
+    return Plugin_Continue;
 }
 
 FindMapSky()
@@ -188,6 +189,7 @@ public Action UnfreezeZombies(Handle timer)
     }
     
     tFreeze = INVALID_HANDLE;
+    return Plugin_Continue;
 }
 
 RemoveObjectives()
@@ -217,20 +219,22 @@ public Action JoinZombie(Handle timer, any index)
 {
     if (!IsClientInGame(index))
     {
-        return;
+        return Plugin_Handled;
     }
     
     ZRiot_Zombie(index);
+    return Plugin_Continue;
 }
 
 public Action ZombieRespawn(Handle timer, any index)
 {
     if (!IsClientInGame(index))
     {
-        return;
+        return Plugin_Handled;
     }
     
     CS_RespawnPlayer(index);
+    return Plugin_Continue;
 }
 
 StartRespawnTimer(client, bool firstspawn)
@@ -355,7 +359,7 @@ public Action RemoveRagdoll(Handle timer, any ragdoll)
 {
     if (ragdoll == -1 || !IsValidEdict(ragdoll))
     {
-        return;
+        return Plugin_Handled;
     }
     
     char classname[64];
@@ -363,10 +367,11 @@ public Action RemoveRagdoll(Handle timer, any ragdoll)
     
     if (!StrEqual(classname, "cs_ragdoll"))
     {
-        return;
+        return Plugin_Handled;
     }
         
     RemoveEdict(ragdoll);
+    return Plugin_Continue;
 }
 
 Fade(client, speed, hold, type, red, green, blue, alpha)

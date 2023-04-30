@@ -50,7 +50,7 @@ public Action AmbienceLoop(Handle timer)
     
     if (!ambience || !soundValid)
     {
-        return;
+        return Plugin_Handled;
     }
     
     char sound[64];
@@ -60,6 +60,7 @@ public Action AmbienceLoop(Handle timer)
     
     float delay = GetConVarFloat(gCvars.CVAR_AMBIENCE_LENGTH);
     tAmbience = CreateTimer(delay, AmbienceLoop, _, TIMER_FLAG_NO_MAPCHANGE);
+    return Plugin_Continue;
 }
 
 StopAmbience()

@@ -9,6 +9,7 @@
 public Action HUD(Handle timer)
 {
     UpdateHUDAll();
+    return Plugin_Continue;
 }
 
 UpdateHUD(clients[], numClients)

@@ -111,7 +111,7 @@ public Action PlayerDisconnect(Handle event, const char[] name, bool dontBroadca
     return Plugin_Continue;
 }
 
-public Action RoundStart(Handle event, const char[] name, bool dontBroadcast)
+public void RoundStart(Handle event, const char[] name, bool dontBroadcast)
 {
     UpdateHostname();
     
@@ -156,7 +156,7 @@ public Action RoundStart(Handle event, const char[] name, bool dontBroadcast)
     }
 }
 
-public Action RoundFreezeEnd(Handle event, const char[] name, bool dontBroadcast)
+public void RoundFreezeEnd(Handle event, const char[] name, bool dontBroadcast)
 {
     RemoveObjectives();
     
@@ -175,7 +175,7 @@ public Action RoundFreezeEnd(Handle event, const char[] name, bool dontBroadcast
     }   
 }
 
-public Action RoundEnd(Handle event, const char[] name, bool dontBroadcast)
+public void RoundEnd(Handle event, const char[] name, bool dontBroadcast)
 {
     ResetZombies(false);
     ClearTrie(trieDeaths);
@@ -237,7 +237,7 @@ public Action PlayerTeam_Pre(Handle event, const char[] name, bool dontBroadcast
     return Plugin_Continue;
 }
 
-public Action PlayerTeam_Post(Handle event, const char[] name, bool dontBroadcast)
+public void PlayerTeam_Post(Handle event, const char[] name, bool dontBroadcast)
 {
     bool disconnect = GetEventBool(event, "disconnect");
     if (disconnect)
@@ -272,9 +272,10 @@ public Action PlayerTeam_Post(Handle event, const char[] name, bool dontBroadcas
 public Action CheckTeam(Handle timer, any index)
 {
     AssignTeamClient(index, IsPlayerAlive(index));
+    return Plugin_Continue;
 }
 
-public Action PlayerSpawn(Handle event, const char[] name, bool dontBroadcast)
+public void PlayerSpawn(Handle event, const char[] name, bool dontBroadcast)
 {
     int index = GetClientOfUserId(GetEventInt(event, "userid"));
     
@@ -387,7 +388,7 @@ public Action PlayerSpawn(Handle event, const char[] name, bool dontBroadcast)
     }
 }
 
-public Action PlayerHurt(Handle event, const char[] name, bool dontBroadcast)
+public void PlayerHurt(Handle event, const char[] name, bool dontBroadcast)
 {
     int index = GetClientOfUserId(GetEventInt(event, "userid"));
     int attacker = GetClientOfUserId(GetEventInt(event, "attacker"));
@@ -431,7 +432,7 @@ public Action PlayerHurt(Handle event, const char[] name, bool dontBroadcast)
     }
 }
 
-public Action PlayerDeath(Handle event, const char[] name, bool dontBroadcast)
+public void PlayerDeath(Handle event, const char[] name, bool dontBroadcast)
 {
     int index = GetClientOfUserId(GetEventInt(event, "userid"));
     
@@ -515,7 +516,7 @@ public Action PlayerDeath(Handle event, const char[] name, bool dontBroadcast)
     }
 }
 
-public Action PlayerJump(Handle event, const char[] name, bool dontBroadcast)
+public void PlayerJump(Handle event, const char[] name, bool dontBroadcast)
 {
     int index = GetClientOfUserId(GetEventInt(event, "userid"));
     

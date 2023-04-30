@@ -134,6 +134,7 @@ ResetZombies(bool switchteam)
 public Action AssignTeamTimer(Handle timer)
 {
     AssignTeamAll(false);
+    return Plugin_Continue;
 }
 
 AssignTeam(clients[], numClients, bool spawn)

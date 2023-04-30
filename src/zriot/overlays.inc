@@ -40,4 +40,5 @@ public Action KillOverlays(Handle timer)
         
         ClientCommand(x, "r_screenoverlay \"\"");
     }
+    return Plugin_Continue;
 }
